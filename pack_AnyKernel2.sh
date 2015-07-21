@@ -4,7 +4,7 @@ device=$2
 device_common=$3
 permissive=$4
 android_version="L"
-folder="cm12"
+folder="cm12_1"
 
 set -e
 
