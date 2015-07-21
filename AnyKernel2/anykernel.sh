@@ -3,7 +3,6 @@
 
 ## AnyKernel setup
 # EDIFY properties
-kernel.string=M5 Kernel
 do.devicecheck=0
 do.initd=1
 do.modules=1
@@ -62,15 +61,16 @@ write_boot() {
     kernel=`ls *-zImage`;
     kernel=$split_img/$kernel;
   fi;
-  if [ -f /tmp/anykernel/dtb ]; then
-    dtb="--dt /tmp/anykernel/dtb";
+  if [ -f /tmp/anykernel/dt.img ]; then
+    dtb="--dt /tmp/anykernel/dt.img";
   elif [ -f *-dtb ]; then
-    dtb=`ls *-dtb`;
-    dtb="--dt $split_img/$dtb";
+    ui_print " "; ui_print "no dt.img found, aborting!"
+    abort;
   fi;
   cd $ramdisk;
   find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
-  $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz $second --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb --output /tmp/anykernel/boot-new.img;
+  $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz --cmdline "$cmdline" --base $base --pagesize $pagesize $dtb --ramdisk_offset $ramdiskoff --tags_offset $tagsoff --output /tmp/anykernel/boot-new.img;
+
   if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
     ui_print " "; ui_print "Repacking image failed. Aborting...";
     echo 1 > /tmp/anykernel/exitcode; exit;
@@ -156,8 +156,8 @@ backup_file fstab.qcom;
 replace_file fstab.qcom 755 fstab.qcom
 
 #LZMA Patch
-backup_file boot/init.sh;
-replace_file boot/init.sh 755 init.sh
+backup_file sbin/init.sh;
+replace_file sbin/init.sh 755 init.sh
 
 # end ramdisk changes
 

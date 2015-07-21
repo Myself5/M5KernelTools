@@ -15,18 +15,18 @@ set -e
 rm -rf AnyKernel2/system
 rm -rf AnyKernel2/modules
 mkdir -p AnyKernel2/system/etc
-mkdir -p AnyKernel2/system/lib/modules
 mkdir -p AnyKernel2/modules
 rm -f AnyKernel2/M5Installer.sh
 rm -f AnyKernel2/patch/fstab.qcom
 rm -f AnyKernel2/patch/init.sh
 rm -f AnyKernel2/kernel
+rm -f AnyKernel2/dt.img
 cp /media/myself5/AOSP/$folder/device/sony/$device/thermanager.xml AnyKernel2/system/etc/thermanager.xml
 cp /media/myself5/AOSP/$folder/device/sony/$device_common/rootdir/fstab.qcom AnyKernel2/patch/fstab.qcom
 cp /media/myself5/AOSP/$folder/device/sony/msm8974-common/boot/init.sh AnyKernel2/patch/init.sh
 cp -r $OUT_DIR_COMMON_BASE/$folder/target/product/$device/kernel AnyKernel2/zImage
-cp -r $OUT_DIR_COMMON_BASE/$folder/target/product/z3/obj/KERNEL_OBJ/arch/arm/boot/*.dtb AnyKernel2/dtb
-cp -r $OUT_DIR_COMMON_BASE/$folder/target/product/$device/system/lib/modules AnyKernel2/modules
+cp -r $OUT_DIR_COMMON_BASE/$folder/target/product/$device/dt.img AnyKernel2/dt.img
+cp -r $OUT_DIR_COMMON_BASE/$folder/target/product/$device/system/lib/modules AnyKernel2/
 
 if [ $device == "amami" ]; then
     export assets_line='assert(getprop("ro.product.device") == "D5503" || getprop("ro.build.product") == "D5503" || getprop("ro.product.device") == "amami" || getprop("ro.build.product") == "amami" || getprop("ro.product.device") == "anami" || getprop("ro.build.product") == "anami" || abort("This package is for device: D5503,amami,anami; this device is " + getprop("ro.product.device") + "."););'
