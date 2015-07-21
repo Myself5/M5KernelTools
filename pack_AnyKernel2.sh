@@ -15,9 +15,11 @@ set -e
 rm -rf AnyKernel2/system
 rm -rf AnyKernel2/modules
 rm -rf AnyKernel2/patch
+rm -rf RELEASE
 mkdir -p AnyKernel2/system/etc
 mkdir -p AnyKernel2/modules
 mkdir -p AnyKernel2/patch
+mkdir -p RELEASE/$device
 rm -f AnyKernel2/M5Installer.sh
 rm -f AnyKernel2/kernel
 rm -f AnyKernel2/dt.img
