@@ -10,11 +10,11 @@ set -e
 
 rm -rf AnyKernel2/system
 rm -rf AnyKernel2/modules
+rm -rf AnyKernel2/patch
 mkdir -p AnyKernel2/system/etc
 mkdir -p AnyKernel2/modules
+mkdir -p AnyKernel2/patch
 rm -f AnyKernel2/M5Installer.sh
-rm -f AnyKernel2/patch/fstab.qcom
-rm -f AnyKernel2/patch/init.sh
 rm -f AnyKernel2/kernel
 rm -f AnyKernel2/dt.img
 cp ../$folder/device/sony/$device/thermanager.xml AnyKernel2/system/etc/thermanager.xml
