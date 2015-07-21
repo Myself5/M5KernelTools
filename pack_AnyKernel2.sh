@@ -2,13 +2,9 @@
 version=$1
 device=$2
 device_common=$3
-kernel_name=M5-Kernel-V$version-L-$device
-android_version=$4
-if [ -z $android_version ]
-  then
-    android_version="L"
-    folder="cm12"
-fi
+permissive=$4
+android_version="L"
+folder="cm12"
 
 set -e
 
@@ -67,6 +63,15 @@ fi
 fi
 fi
 
+if [ $permissive == "permissive" ]; then
+  permissive_line="echo 1 > /tmp/anykernel/permissive;"
+  version="$version-Permissive"
+else
+  permissive_line=""
+fi
+
+kernel_name=M5-Kernel-V$version-L-$device
+
 cat <<EOT>> AnyKernel2/M5Installer.sh
 $assets_line
 show_progress(0.500000, 0);
@@ -78,6 +83,7 @@ package_extract_dir("system", "/system");
 set_perm_recursive(1023, 1023, 0775, 0777, "/system/etc/thermanager.xml");
 show_progress(0.100000, 0);
 echo 1 > /tmp/anykernel/m5exitcode;
+$permissive_line
 EOT
 
 cd AnyKernel2
