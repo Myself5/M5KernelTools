@@ -6,6 +6,10 @@ permissive=$4
 android_version="L"
 folder="cm12_1"
 
+if [ -z $permissive ]; then
+  permissive=false
+fi
+
 set -e
 
 rm -rf AnyKernel2/system
