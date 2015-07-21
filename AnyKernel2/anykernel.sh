@@ -43,6 +43,10 @@ dump_boot() {
 write_boot() {
   cd $split_img;
   cmdline=`cat *-cmdline`;
+  if [ "$(cat /tmp/anykernel/permissive)" == 1 ]; then
+    cmdline="$cmdline androidboot.selinux=permissive"
+  fi;
+
   board=`cat *-board`;
   base=`cat *-base`;
   pagesize=`cat *-pagesize`;
