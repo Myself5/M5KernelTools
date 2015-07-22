@@ -3,7 +3,7 @@
 
 ## AnyKernel setup
 # EDIFY properties
-do.devicecheck=0
+do.devicecheck=1
 do.initd=1
 do.modules=1
 do.cleanup=1
@@ -74,7 +74,6 @@ write_boot() {
   cd $ramdisk;
   find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
   $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz --cmdline "$cmdline" --base $base --pagesize $pagesize $dtb --ramdisk_offset $ramdiskoff --tags_offset $tagsoff --output /tmp/anykernel/boot-new.img;
-
   if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
     ui_print " "; ui_print "Repacking image failed. Aborting...";
     echo 1 > /tmp/anykernel/exitcode; exit;
@@ -164,7 +163,5 @@ backup_file sbin/init.sh;
 replace_file sbin/init.sh 755 init.sh
 
 # end ramdisk changes
-
 write_boot;
-
 ## end install

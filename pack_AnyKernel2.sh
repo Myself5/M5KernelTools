@@ -30,7 +30,7 @@ cp -r ../$folder/out/target/product/$device/dt.img AnyKernel2/dt.img
 cp -r ../$folder/out/target/product/$device/system/lib/modules AnyKernel2/
 
 if [ $device == "amami" ]; then
-    export assets_line='assert(getprop("ro.product.device") == "D5503" || getprop("ro.build.product") == "D5503" || getprop("ro.product.device") == "amami" || getprop("ro.build.product") == "amami" || getprop("ro.product.device") == "anami" || getprop("ro.build.product") == "anami" || abort("This package is for device: D5503,amami,anami; this device is " + getprop("ro.product.device") + "."););'
+    # export assets_line='assert(getprop("ro.product.device") == "D5503" || getprop("ro.build.product") == "D5503" || getprop("ro.product.device") == "amami" || getprop("ro.build.product") == "amami" || getprop("ro.product.device") == "anami" || getprop("ro.build.product") == "anami" || abort("This package is for device: D5503,amami,anami; this device is " + getprop("ro.product.device") + "."););'
     device1="D5503"
     device2="amami"
     device3="anami"
@@ -38,7 +38,7 @@ if [ $device == "amami" ]; then
     device5=""
 else
 if [ $device  == "sirius" ]; then
-    export assets_line='assert(getprop("ro.product.device") == "D6502" || getprop("ro.build.product") == "D6502" || getprop("ro.product.device") == "D6503" || getprop("ro.build.product") == "D6503" || getprop("ro.product.device") == "D6506" || getprop("ro.build.product") == "D6506" || getprop("ro.product.device") == "D6543" || getprop("ro.build.product") == "D6543" || getprop("ro.product.device") == "sirius" || getprop("ro.build.product") == "sirius" || abort("This package is for \"D6502,D6503,D6506,D6543,sirius\" devices; this is a \"" + getprop("ro.product.device") + "\"."););'
+    # export assets_line='assert(getprop("ro.product.device") == "D6502" || getprop("ro.build.product") == "D6502" || getprop("ro.product.device") == "D6503" || getprop("ro.build.product") == "D6503" || getprop("ro.product.device") == "D6506" || getprop("ro.build.product") == "D6506" || getprop("ro.product.device") == "D6543" || getprop("ro.build.product") == "D6543" || getprop("ro.product.device") == "sirius" || getprop("ro.build.product") == "sirius" || abort("This package is for \"D6502,D6503,D6506,D6543,sirius\" devices; this is a \"" + getprop("ro.product.device") + "\"."););'
     device1="D6502"
     device2="D6503"
     device3="D6506"
@@ -46,7 +46,7 @@ if [ $device  == "sirius" ]; then
     device5="sirius"
 else
 if [ $device  == "z3" ]; then
-    export assets_line='assert(getprop("ro.product.device") == "D6602" || getprop("ro.build.product") == "D6602" || getprop("ro.product.device") == "D6603" || getprop("ro.build.product") == "D6603" || getprop("ro.product.device") == "D6633" || getprop("ro.build.product") == "D6633" || getprop("ro.product.device") == "D6643" || getprop("ro.build.product") == "D6643" || getprop("ro.product.device") == "z3" || getprop("ro.build.product") == "z3" || abort("This package is for device: D6602,D6603,D6633,D6643,z3; this device is " + getprop("ro.product.device") + "."););'
+    # export assets_line='assert(getprop("ro.product.device") == "D6602" || getprop("ro.build.product") == "D6602" || getprop("ro.product.device") == "D6603" || getprop("ro.build.product") == "D6603" || getprop("ro.product.device") == "D6633" || getprop("ro.build.product") == "D6633" || getprop("ro.product.device") == "D6643" || getprop("ro.build.product") == "D6643" || getprop("ro.product.device") == "z3" || getprop("ro.build.product") == "z3" || abort("This package is for device: D6602,D6603,D6633,D6643,z3; this device is " + getprop("ro.product.device") + "."););'
     device1="D6602"
     device2="D6603"
     device3="D6633"
@@ -54,7 +54,7 @@ if [ $device  == "z3" ]; then
     device5="z3"
 else
 if [ $device  == "z3c" ]; then
-    export assets_line='assert(getprop("ro.product.device") == "D5803" || getprop("ro.build.product") == "D5803" || getprop("ro.product.device") == "D5833" || getprop("ro.build.product") == "D5833" || getprop("ro.product.device") == "z3c" || getprop("ro.build.product") == "z3c" || abort("This package is for device: D5803,D5833,z3c; this device is " + getprop("ro.product.device") + "."););'
+    # export assets_line='assert(getprop("ro.product.device") == "D5803" || getprop("ro.build.product") == "D5803" || getprop("ro.product.device") == "D5833" || getprop("ro.build.product") == "D5833" || getprop("ro.product.device") == "z3c" || getprop("ro.build.product") == "z3c" || abort("This package is for device: D5803,D5833,z3c; this device is " + getprop("ro.product.device") + "."););'
     device1="D5803"
     device2="D5833"
     device3="z3c"
@@ -62,7 +62,7 @@ if [ $device  == "z3c" ]; then
     device5=""
 else
 if [ $device  == "honami" ]; then
-    export assets_line='assert(getprop("ro.product.device") == "C6902" || getprop("ro.build.product") == "C6902" || getprop("ro.product.device") == "C6903" || getprop("ro.build.product") == "C6903" || getprop("ro.product.device") == "C6906" || getprop("ro.build.product") == "C6906" || getprop("ro.product.device") == "C6943" || getprop("ro.build.product") == "C6943" || getprop("ro.product.device") == "honami" || getprop("ro.build.product") == "honami" || abort("This package is for device: C6902,C6903,C6906,C6943,honami; this device is " + getprop("ro.product.device") + "."););'
+    # export assets_line='assert(getprop("ro.product.device") == "C6902" || getprop("ro.build.product") == "C6902" || getprop("ro.product.device") == "C6903" || getprop("ro.build.product") == "C6903" || getprop("ro.product.device") == "C6906" || getprop("ro.build.product") == "C6906" || getprop("ro.product.device") == "C6943" || getprop("ro.build.product") == "C6943" || getprop("ro.product.device") == "honami" || getprop("ro.build.product") == "honami" || abort("This package is for device: C6902,C6903,C6906,C6943,honami; this device is " + getprop("ro.product.device") + "."););'
     device1="C6902"
     device2="C6903"
     device3="C6906"
@@ -81,23 +81,19 @@ if [ $permissive == "permissive" ]; then
   permissive_line="echo 1 > /tmp/anykernel/permissive;"
   version="$version-Permissive"
 else
-  permissive_line=""
+  permissive_line="echo 0 > /tmp/anykernel/permissive;"
 fi
 
 kernel_name=M5-Kernel-V$version-L-$device
 
 cat <<EOT>> AnyKernel2/M5Installer.sh
-$assets_line
-/sbin/busybox mount /system;
-show_progress(0.500000, 0);
-show_progress(0.200000, 0);
-show_progress(0.200000, 10);
-ui_print("|> Installing Thermanager...");
-delete("/system/etc/thermanager.xml");
-package_extract_dir("system", "/system");
-set_perm_recursive(1023, 1023, 0775, 0777, "/system/etc/thermanager.xml");
-show_progress(0.100000, 0);
-echo 1 > /tmp/anykernel/m5exitcode;
+device.name1=$device1
+device.name2=$device2
+device.name3=$device3
+device.name4=$device4
+device.name5=$device5
+
+echo 0 > /tmp/anykernel/permissive;
 $permissive_line
 EOT
 
