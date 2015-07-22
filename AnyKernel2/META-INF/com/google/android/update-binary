@@ -12,8 +12,10 @@ ui_print() {
     shift;
   done;
 }
-delete() { rm -rf $1; }
-package_extract_dir() { cp -R $1 $2; }
+replace_file() {
+  cp -fp $3 $1;
+  chmod $2 $1;
+}
 show_progress() { echo "progress $1 $2" > $OUTFD; }
 set_perm_recursive() {
   dirs=$(echo $* | awk '{ print substr($0, index($0,$5)) }');
@@ -72,9 +74,7 @@ ui_print " ";
 /sbin/busybox mount /system;
 /sbin/sh /tmp/anykernel/M5Installer.sh;
 ui_print "|> Installing Thermanager...";
-delete "/system/etc/thermanager.xml";
-package_extract_dir "system" "/system";
-set_perm_recursive 0 0 0755 0777 "/system/etc/thermanager.xml";
+replace_file "/system/etc/thermanager.xml" 755 "/system/etc/thermanager.xml";
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.initd)" == 1 ]; then
   ui_print "Creating init.d...";
