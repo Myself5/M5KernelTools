@@ -6,17 +6,14 @@ OUTFD=/proc/self/fd/$2;
 ZIP="$3";
 DIR=`dirname "$ZIP"`;
 
-/sbin/sh /tmp/anykernel/M5Installer.sh;
-if [ "$(cat /tmp/anykernel/m5exitcode)" != 1 ]; then
-  abort;
-fi;
-
 ui_print() {
   until [ ! "$1" ]; do
     echo -e "ui_print $1\nui_print" > $OUTFD;
     shift;
   done;
 }
+delete() { rm -rf $1; }
+package_extract_dir() { cp -R $1 $2; }
 show_progress() { echo "progress $1 $2" > $OUTFD; }
 set_perm_recursive() {
   dirs=$(echo $* | awk '{ print substr($0, index($0,$5)) }');
@@ -36,6 +33,24 @@ mkdir -p /tmp/anykernel;
 cd /tmp/anykernel;
 unzip -o $ZIP;
 
+chmod 755 /tmp/anykernel/M5Installer.sh;
+chmod 755 /tmp/anykernel/anykernel.sh;
+
+if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
+  ui_print "Checking device...";
+  ui_print " ";
+  for i in 1 2 3 4 5; do
+    testname="$(file_getprop /tmp/anykernel/M5Installer.sh device.name$i)";
+    if [ "$(getprop ro.product.device)" == "$testname" -o "$(getprop ro.build.product)" == "$testname" ]; then
+      match=1;
+    fi;
+  done;
+  if [ "$match" != 1 ]; then
+    umount /system;
+    abort "Unsupported device. Aborting...";
+  fi;
+fi;
+
 ui_print "                                        ";
 ui_print "               __  _________            ";
 ui_print "              /  |/  / ____/            ";
@@ -50,24 +65,16 @@ ui_print "    / ,< / _ \/ ___/ __ \/ _ \/ /       ";
 ui_print "   / /| /  __/ /  / / / /  __/ /        ";
 ui_print "  /_/ |_\___/_/  /_/ /_/\___/_/         ";
 ui_print "                                        ";
+ui_print " M5 Kernel  by Myself5 @ xda-developers ";
+ui_print "               powered by               ";
 ui_print " AnyKernel2 by osm0sis @ xda-developers ";
 ui_print " ";
 /sbin/busybox mount /system;
-
-if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
-  ui_print "Checking device...";
-  ui_print " ";
-  for i in 1 2 3 4 5; do
-    testname="$(file_getprop /tmp/anykernel/anykernel.sh device.name$i)";
-    if [ "$(getprop ro.product.device)" == "$testname" -o "$(getprop ro.build.product)" == "$testname" ]; then
-      match=1;
-    fi;
-  done;
-  if [ "$match" != 1 ]; then
-    umount /system;
-    abort "Unsupported device. Aborting...";
-  fi;
-fi;
+/sbin/sh /tmp/anykernel/M5Installer.sh;
+ui_print "|> Installing Thermanager...";
+delete "/system/etc/thermanager.xml";
+package_extract_dir "system" "/system";
+set_perm_recursive 0 0 0755 0777 "/system/etc/thermanager.xml";
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.initd)" == 1 ]; then
   ui_print "Creating init.d...";
