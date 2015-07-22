@@ -61,8 +61,17 @@ if [ $device  == "z3c" ]; then
     device4=""
     device5=""
 else
+if [ $device  == "honami" ]; then
+    export assets_line='assert(getprop("ro.product.device") == "C6902" || getprop("ro.build.product") == "C6902" || getprop("ro.product.device") == "C6903" || getprop("ro.build.product") == "C6903" || getprop("ro.product.device") == "C6906" || getprop("ro.build.product") == "C6906" || getprop("ro.product.device") == "C6943" || getprop("ro.build.product") == "C6943" || getprop("ro.product.device") == "honami" || getprop("ro.build.product") == "honami" || abort("This package is for device: C6902,C6903,C6906,C6943,honami; this device is " + getprop("ro.product.device") + "."););'
+    device1="C6902"
+    device2="C6903"
+    device3="C6906"
+    device4="C6943"
+    device5="honami"
+else
 echo "wrong Device specified. You set $device, it needs to be amami, sirius, z3 or z3c"
 exit 1
+fi
 fi
 fi
 fi
