@@ -65,7 +65,7 @@ write_boot() {
     kernel=`ls *-zImage`;
     kernel=$split_img/$kernel;
   fi;
-  if [ -f /tmp/anykernel/dt.img ]; then
+  if [ -e /tmp/anykernel/dt.img ]; then
     dtb="--dt /tmp/anykernel/dt.img";
   elif [ -f *-dtb ]; then
     ui_print " "; ui_print "no dt.img found, aborting!"
@@ -74,9 +74,13 @@ write_boot() {
   cd $ramdisk;
   find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
   $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz --cmdline "$cmdline" --base $base --pagesize $pagesize $dtb --ramdisk_offset $ramdiskoff --tags_offset $tagsoff --output /tmp/anykernel/boot-new.img;
-  if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
-    ui_print " "; ui_print "Repacking image failed. Aborting...";
-    echo 1 > /tmp/anykernel/exitcode; exit;
+  # check if this zip get's flashed in MultiROM, it appears like the ifcheck does not get fullfuilled in Secondary Roms
+  if [ \! -e /tmp/mrom_last_updater_script ] || [ "$(cat /tmp/mrom_last_updater_script)" != "$(cat /tmp/anykernel/META-INF/com/google/android/updater-script)" ]; then
+    echo 1 > /tmp/anykernel/bootchecked
+    if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
+      ui_print " "; ui_print "Repacking image failed. Aborting...";
+      echo 1 > /tmp/anykernel/exitcode; exit;
+    fi;
   fi;
   dd if=/tmp/anykernel/boot-new.img of=$block;
 }

@@ -93,7 +93,6 @@ device.name3=$device3
 device.name4=$device4
 device.name5=$device5
 
-echo 0 > /tmp/anykernel/permissive;
 $permissive_line
 EOT
 
