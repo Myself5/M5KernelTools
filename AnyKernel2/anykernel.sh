@@ -43,7 +43,7 @@ dump_boot() {
 write_boot() {
   cd $split_img;
   cmdline=`cat *-cmdline`;
-  if [ "$(cat /tmp/anykernel/permissive)" == 1 ]; then
+  if [ "$(file_getprop /tmp/anykernel/M5Installer.sh is.permissive)" == 1 ]; then
     cmdline="$cmdline androidboot.selinux=permissive"
   fi;
 
@@ -144,6 +144,9 @@ replace_file() {
   cp -fp $patch/$3 $1;
   chmod $2 $1;
 }
+
+# file_getprop <file> <property>
+file_getprop() { grep "^$2" "$1" | cut -d= -f2; }
 
 ## end methods
 

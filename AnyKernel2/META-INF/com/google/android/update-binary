@@ -72,7 +72,6 @@ ui_print "               powered by               ";
 ui_print " AnyKernel2 by osm0sis @ xda-developers ";
 ui_print " ";
 /sbin/busybox mount /system;
-/sbin/sh /tmp/anykernel/M5Installer.sh;
 ui_print "|> Installing Thermanager...";
 replace_file "/system/etc/thermanager.xml" 755 "/system/etc/thermanager.xml";
 

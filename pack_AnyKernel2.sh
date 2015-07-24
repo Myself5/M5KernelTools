@@ -78,10 +78,10 @@ fi
 fi
 
 if [ $permissive == "permissive" ]; then
-  permissive_line="echo 1 > /tmp/anykernel/permissive;"
+  permissive="1"
   version="$version-Permissive"
 else
-  permissive_line="echo 0 > /tmp/anykernel/permissive;"
+  permissive="0"
 fi
 
 kernel_name=M5-Kernel-V$version-L-$device
@@ -92,8 +92,7 @@ device.name2=$device2
 device.name3=$device3
 device.name4=$device4
 device.name5=$device5
-
-$permissive_line
+is.permissive=$permissive
 EOT
 
 cd AnyKernel2
