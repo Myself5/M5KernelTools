@@ -98,7 +98,10 @@ EOT
 cd AnyKernel2
 zip -r ../M5-Kernel-V$version-unsigned.zip *
 cd ..
-java -Xmx2048m -jar signing/signapk.jar -w signing/testkey.x509.pem signing/testkey.pk8 M5-Kernel-V$version-unsigned.zip RELEASE/$device/$kernel_name.zip
+java -Xmx2048m -jar signing/signapk.jar -w signing/testkey.x509.pem signing/testkey.pk8 M5-Kernel-V$version-unsigned.zip M5-Kernel-V$version-false-signed.zip
 rm -f M5-Kernel-V$version-unsigned.zip
-
+signing/zipadjust M5-Kernel-V$version-false-signed.zip M5-Kernel-V$version-adjusted-unsigned.zip
+rm -f M5-Kernel-V$version-false-signed.zip
+java -Xmx2048m -jar signing/minsignapk.jar signing/testkey.x509.pem signing/testkey.pk8 M5-Kernel-V$version-adjusted-unsigned.zip RELEASE/$device/$kernel_name.zip
+rm -f M5-Kernel-V$version-adjusted-unsigned.zip
 echo "M5 Kernel for $device Sucessfully Packed and Signed as $kernel_name"
