@@ -92,7 +92,7 @@ fi;
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.modules)" == 1 ]; then
   ui_print "Pushing modules...";
   ui_print " ";
-  rm -rf /tmp/anykernel/modules/*
+  rm -rf /system/lib/modules/*
   cp -f /tmp/anykernel/modules/* /system/lib/modules/;
   set_perm_recursive 0 0 0755 0644 /system/lib/modules;
 fi;
