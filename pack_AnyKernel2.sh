@@ -70,8 +70,24 @@ case $device in
         device4="C6943"
         device5="honami"
     ;;
+    castor)
+        # assert(getprop("ro.product.device") == "SGP521" || getprop("ro.build.product") == "SGP521" || getprop("ro.product.device") == "SGP541" || getprop("ro.build.product") == "SGP541" || getprop("ro.product.device") == "SGP551" || getprop("ro.build.product") == "SGP551" || getprop("ro.product.device") == "castor" || getprop("ro.build.product") == "castor" || abort("This package is for device: SGP521,SGP541,SGP551,castor; this device is " + getprop("ro.product.device") + "."););
+        device1="SGP521"
+        device2="SGP541"
+        device3="SGP551"
+        device4="castor"
+        device5=""
+    ;;
+    castor_windy)
+        # assert(getprop("ro.product.device") == "SGP511" || getprop("ro.build.product") == "SGP511" || getprop("ro.product.device") == "SGP512" || getprop("ro.build.product") == "SGP512" || getprop("ro.product.device") == "castor_windy" || getprop("ro.build.product") == "castor_windy" || abort("This package is for device: SGP511,SGP512,castor_windy; this device is " + getprop("ro.product.device") + "."););
+        device1="SGP511"
+        device2="SGP512"
+        device3="castor_windy"
+        device4=""
+        device5=""
+    ;;
     *)
-        echo "wrong Device specified. You set $device, it needs to be amami, sirius, z3 or z3c"
+        echo "wrong Device specified. You set $device, it needs to be amami, sirius, z3, z3c, honami, castor or castor_windy"
         exit 1
     ;;
 esac
