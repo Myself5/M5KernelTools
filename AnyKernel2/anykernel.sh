@@ -44,7 +44,11 @@ write_boot() {
   cd $split_img;
   cmdline=`cat *-cmdline`;
   if [ "$(file_getprop /tmp/anykernel/M5Installer.sh is.permissive)" == 1 ]; then
-    cmdline="$cmdline androidboot.selinux=permissive"
+    if [[ cmdline == *"permissive"* ]]; then
+      ui_print "Skipping Permissive Modification, Permissive was already found in the cmdline";
+    else
+      cmdline="$cmdline androidboot.selinux=permissive"
+    fi
   fi;
 
   board=`cat *-board`;
