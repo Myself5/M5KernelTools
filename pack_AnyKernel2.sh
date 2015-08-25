@@ -22,7 +22,6 @@ mkdir -p RELEASE/$device
 rm -f AnyKernel2/M5Installer.sh
 rm -f AnyKernel2/kernel
 rm -f AnyKernel2/dt.img
-cp ../$folder/device/sony/$device/thermanager.xml AnyKernel2/system/etc/thermanager.xml
 cp ../$folder/device/sony/$device_common/rootdir/fstab.qcom AnyKernel2/patch/fstab.qcom
 cp ../$folder/device/sony/msm8974-common/boot/init.sh AnyKernel2/patch/init.sh
 cp -r ../$folder/out/target/product/$device/kernel AnyKernel2/zImage

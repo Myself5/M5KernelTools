@@ -72,8 +72,6 @@ ui_print "               powered by               ";
 ui_print " AnyKernel2 by osm0sis @ xda-developers ";
 ui_print " ";
 /sbin/busybox mount /system;
-ui_print "|> Installing Thermanager...";
-replace_file "/system/etc/thermanager.xml" 755 "/system/etc/thermanager.xml";
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.initd)" == 1 ]; then
   ui_print "Creating init.d...";
