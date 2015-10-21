@@ -76,17 +76,24 @@ write_boot() {
     abort;
   fi;
   cd $ramdisk;
-  find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
-  $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz --cmdline "$cmdline" --base $base --pagesize $pagesize $dtb --ramdisk_offset $ramdiskoff --tags_offset $tagsoff --output /tmp/anykernel/boot-new.img;
-  # check if this zip get's flashed in MultiROM, it appears like the ifcheck does not get fullfuilled in Secondary Roms
-  if [ \! -e /tmp/mrom_last_updater_script ] || [ "$(cat /tmp/mrom_last_updater_script)" != "$(cat /tmp/anykernel/META-INF/com/google/android/updater-script)" ]; then
-    echo 1 > /tmp/anykernel/bootchecked
-    if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
-      ui_print " "; ui_print "Repacking image failed. Aborting...";
-      echo 1 > /tmp/anykernel/exitcode; exit;
+  if [-f "fstab.qcom" ]; then
+    find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
+    $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz --cmdline "$cmdline" --base $base --pagesize $pagesize $dtb --ramdisk_offset $ramdiskoff --tags_offset $tagsoff --output /tmp/anykernel/boot-new.img;
+    # check if this zip get's flashed in MultiROM, it appears like the ifcheck does not get fullfuilled in Secondary Roms
+    if [ ! -e /tmp/mrom_last_updater_script ] || [ "$(cat /tmp/mrom_last_updater_script)" != "$(cat /tmp/anykernel/META-INF/com/google/android/updater-script)" ]; then
+      echo 1 > /tmp/anykernel/bootchecked
+      if [ $? != 0 -o `wc -c < /tmp/anykernel/boot-new.img` -gt `wc -c < /tmp/anykernel/boot.img` ]; then
+        ui_print " "; ui_print "Repacking image failed. Aborting...";
+        echo 1 > /tmp/anykernel/exitcode; exit;
+      fi;
     fi;
+    dd if=/tmp/anykernel/boot-new.img of=$block;
+  else
+    ui_print "Error creating working boot image, aborting install!";
+    ui_print "Are you running a compatible recovery?";
+    ui_print "Remember that CM Recovery is not supported by this Installer!";
+    echo 1 > /tmp/anykernel/exitcode; exit;
   fi;
-  dd if=/tmp/anykernel/boot-new.img of=$block;
 }
 
 # backup_file <file>
