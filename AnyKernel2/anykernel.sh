@@ -92,7 +92,7 @@ write_boot() {
     ui_print "Error creating working boot image, aborting install!";
     ui_print "Are you running a compatible recovery?";
     ui_print "Remember that CM Recovery is not supported by this Installer!";
-    echo 1 > /tmp/anykernel/exitcode; exit;
+    echo 2 > /tmp/anykernel/exitcode; exit;
   fi;
 }
 
