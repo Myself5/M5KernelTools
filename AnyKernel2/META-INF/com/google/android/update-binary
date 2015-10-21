@@ -86,6 +86,13 @@ if [ "$(cat /tmp/anykernel/exitcode)" == 1 ]; then
   umount /system;
   abort;
 fi;
+if [ "$(cat /tmp/anykernel/exitcode)" == 2 ]; then
+  ui_print "Error creating working boot image, aborting install!";
+  ui_print "Are you running a compatible recovery?";
+  ui_print "Remember that CM Recovery is not supported by this Installer!";
+  umount /system;
+  abort;
+fi;
 
 if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.modules)" == 1 ]; then
   ui_print "Pushing modules...";
