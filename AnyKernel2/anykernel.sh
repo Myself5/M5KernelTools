@@ -76,7 +76,7 @@ write_boot() {
     abort;
   fi;
   cd $ramdisk;
-  if [-e $ramdisk/fstab.qcom ]; then
+  if [ -e $ramdisk/fstab.qcom ]; then
     find . | cpio -H newc -o | gzip > /tmp/anykernel/ramdisk-new.cpio.gz;
     $bin/mkbootimg --kernel $kernel --ramdisk /tmp/anykernel/ramdisk-new.cpio.gz --cmdline "$cmdline" --base $base --pagesize $pagesize $dtb --ramdisk_offset $ramdiskoff --tags_offset $tagsoff --output /tmp/anykernel/boot-new.img;
     # check if this zip get's flashed in MultiROM, it appears like the ifcheck does not get fullfuilled in Secondary Roms
