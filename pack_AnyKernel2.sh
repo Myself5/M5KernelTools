@@ -85,8 +85,22 @@ case $device in
         device4=""
         device5=""
     ;;
+    scorpion)
+        device1="SGP621"
+        device2="SGP641"
+        device3="SGP651"
+        device4="scorpion"
+        device5=""
+    ;;
+    scorpion_windy)
+        device1="SGP611"
+        device2="SGP612"
+        device3="scorpion_windy"
+        device4=""
+        device5=""
+    ;;
     *)
-        echo "wrong Device specified. You set $device, it needs to be amami, sirius, z3, z3c, honami, castor or castor_windy"
+        echo "wrong Device specified. You set $device, it needs to be amami, sirius, z3, z3c, honami, castor, castor_windy, scorpion or scorpion_windy"
         exit 1
     ;;
 esac
